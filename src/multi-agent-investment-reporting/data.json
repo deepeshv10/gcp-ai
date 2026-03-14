@@ -1,0 +1,32 @@
+{
+    "portfolios": [
+      {
+        "id": "TECH-ALPHA-2026",
+        "type": "Equity-Growth",
+        "period": "February 2026",
+        "metrics": {"return": 4.2, "benchmark": 2.8, "alpha": 1.4},
+        "attribution": [{"sector": "Semiconductors", "impact": 2.1, "reason": "AI chip demand"}],
+        "market_context": ["Fed kept rates at 5.25%", "Tech earnings beat expectations"]
+      },
+      {
+        "id": "GREEN-BOND-LP",
+        "type": "Fixed-Income",
+        "period": "February 2026",
+        "metrics": {"return": -0.5, "benchmark": -0.2, "alpha": -0.3},
+        "attribution": [{"sector": "Renewables", "impact": -0.4, "reason": "Regulatory delays"}],
+        "market_context": ["Yield curve flattened", "New EU green taxonomy update"]
+      },
+      {
+        "id": "GLOBAL-MACRO-V1",
+        "type": "Multi-Asset",
+        "period": "February 2026",
+        "metrics": {"return": 1.5, "benchmark": 1.0, "alpha": 0.5},
+        "attribution": [{"sector": "Commodities", "impact": 0.9, "reason": "Gold price surge"}],
+        "market_context": ["Geopolitical tension in Middle East", "Gold hit record highs"]
+      }
+    ],
+    "compliance_rules": {
+      "disclaimer": "Past performance is not indicative of future results.",
+      "banned_words": ["guaranteed", "risk-free", "no-loss", "certainty"]
+    }
+  }
