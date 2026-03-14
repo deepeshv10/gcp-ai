@@ -1,15 +1,30 @@
 import asyncio
-from agent import final_reporting_agent, run_agent_query
+from agent import final_reporting_agent
+from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService, Session
+from google.genai import types
 
-session_service = InMemorySessionService()
+APP_NAME = "reporting-app"
+USER_ID = "12345"
+SESSION_ID = "123344"
 
-async def generate_report():
-    query = "Generate report for TECH-ALPHA-2026"
-    reporting_session = await session_service.create_session(app_name=final_reporting_agent.name, user_id="dv-01")
-    agent_output = await run_agent_query(final_reporting_agent, query, reporting_session, "dv-01", is_router=True)
-    final_output = agent_output.strip().replace("'", "")
-    print("\n Final OUtput ---> \n", final_output)
+# Session and Runner
+async def setup_session_and_runner():
+    session_service = InMemorySessionService()
+    session = await session_service.create_session(app_name=APP_NAME, user_id=USER_ID, session_id=SESSION_ID)
+    runner = Runner(agent=final_reporting_agent, app_name=APP_NAME, session_service=session_service)
+    return session, runner
 
 
-asyncio.run(generate_report())
+# Agent Interaction
+async def call_agent_async(query):
+    content = types.Content(role='user', parts=[types.Part(text=query)])
+    session, runner = await setup_session_and_runner()
+    events = runner.run_async(user_id=USER_ID, session_id=SESSION_ID, new_message=content)
+
+    async for event in events:
+        if event.is_final_response():
+            final_response = event.content.parts[0].text
+            print("Agent Response: ", final_response)
+
+asyncio.run(call_agent_async("generate report for TECH-ALPHA-2026"))
