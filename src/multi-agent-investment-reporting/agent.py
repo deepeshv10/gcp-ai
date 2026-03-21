@@ -11,7 +11,7 @@ load_dotenv()
 
 # Specialist Agent 1
 data_miner = Agent(
-    name="data_miner_agent", model="gemini-2.5-flash",
+    name="data_miner_agent", model="gemini-2.5-flash-lite",
     instruction="Extract and calculate performance deltas from the JSON for a specific ID. Do: Use exact numbers; calculate Alpha ($Return - Benchmark$). Don't: Add any commentary or opinions.",
     output_key="miner_result",
     tools = [fetch_portfolio_data]
@@ -19,7 +19,7 @@ data_miner = Agent(
 
 # Specialist Agent 2
 macro_observer = Agent(
-    name="macro_observer_agent", model="gemini-2.5-flash",
+    name="macro_observer_agent", model="gemini-2.5-flash-lite",
     instruction="Correlate the attribution reason with the provided market context. Do: Create a logical link between 'Market Context' and 'Sector Impact'. Don't: Invent external news not found in the JSON.",
     output_key="observer_result",
     tools = [fetch_portfolio_data]
@@ -28,7 +28,7 @@ macro_observer = Agent(
 # this is a synthesizer agent that combines information from data_miner & macro_observer
 narrative_architect = Agent(
     name="narrative_architect_agent",
-    model="gemini-2.5-flash",
+    model="gemini-2.5-flash-lite",
     instruction="""Combine the following research results into a clear and professional client commentary. 
     - Performance stats : {miner_result}
     - Market context : {observer_result}
@@ -40,7 +40,7 @@ narrative_architect = Agent(
 
 compliance_guardian = Agent(
     name="compliance_guardian_agent",
-    model="gemini-2.5-flash",
+    model="gemini-2.5-flash-lite",
     tools=[get_compliance_config],
     instruction="Audit the final text for banned words and ensure the mandatory disclaimer is appended. Do: Strip banned words; verify the exact disclaimer string exists. Don't: Modify the financial data or macro reasoning.",
     output_key="compliance_result" # Set the correct output key for this workflow
