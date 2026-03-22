@@ -1,0 +1,14 @@
+{
+  "live_market": {
+    "ticker": "NVDA",
+    "price": 820.50,
+    "rsi": 78,
+    "news_flash": "Rumors of massive AI infrastructure spend by Tier-1 CSPs.",
+    "volatility_index": "High"
+  },
+  "risk_params": {
+    "max_position": 5000,
+    "current_exposure": 1200,
+    "daily_pnl": -150
+  }
+}
