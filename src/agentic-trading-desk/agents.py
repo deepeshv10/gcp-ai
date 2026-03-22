@@ -1,10 +1,7 @@
-from google.adk.tools import google_search
 from google.adk.agents import Agent, ParallelAgent, SequentialAgent, LoopAgent
-from google.adk.tools import google_search, ToolContext
+from tools import stock_data_tool, risk_analysis_tool
 from dotenv import load_dotenv
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService, Session
-from google.genai.types import Content, Part
+
 
 load_dotenv()
 MODEL = "gemini-2.5-flash-lite"
@@ -13,7 +10,7 @@ MODEL = "gemini-2.5-flash-lite"
 sentiment_scraper = Agent(
     name="sentiment_scraper_agent", model=MODEL,
     instruction="""
-        Extract sentiments data for given stock {stock_symbol}. 
+        Extract sentiments data for available stocks. 
         Do: Focus on recent news and social media trends. 
         Don't: Include historical data older than 1 month.""",
     output_key="scraper_result",
@@ -73,6 +70,6 @@ trading_team = SequentialAgent(
 )
 
 
-root_agent = trading_team
+# root_agent = trading_team
 print("Trading Agent team supercharged with a workflow!")
 
